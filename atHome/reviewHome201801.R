@@ -75,10 +75,10 @@ library(stringr)
 library(RJSONIO)
 library(ggplot2)
 #¿Œ¡ı
-consumerKey <-  "inhysBxgyQ3j2zVVKNMIxJsxO"
-consumerSecret <-  "aYWfMPOKPIHYtTzo8ip91rq9KbJIcPLWu2iYPqV1ATzCjVRMj2"
-accessSecret <- "CCRnikEb5XeZ7LY0d1uvRby5Vj13O1QG3uiPV6zepyUGT"
-accessToken <- "817499316847669248-nSsT5c9eGsBJrM0HD4COeWIa3WNIHyr"
+consumerKey <- '3esVC69GlJcmxL4VezZ7CdKwu' 
+consumerSecret <- 'gwtwk1oMqQvi6ZfqPphQb9uJctCDIIldGxYymU9OcCAJDbkouQ'
+accessToken <- '133360027-x7e4FuoCVA4AsEFBMjhs4kvx3HN86ajsRQmG7mwJ'
+accessSecret <- 'ak2qVw9ioIXyLmUw1UqWHNHohJRRPfWzlDtABaHRYzJIr'
 
 requestURL <- paste0("https://api.twitter.com/oauth/",consumerKey)
 accessURL <- paste0("https://api.twitter.com/oauth/",accessToken)
