@@ -20,15 +20,14 @@ library(RJSONIO)
 library(RCurl)
 library(ggplot2)
 
-consumerKey <-  "inhysBxgyQ3j2zVVKNMIxJsxO"
-consumerSecret <-  "aYWfMPOKPIHYtTzo8ip91rq9KbJIcPLWu2iYPqV1ATzCjVRMj2"
-accessSecret <- "CCRnikEb5XeZ7LY0d1uvRby5Vj13O1QG3uiPV6zepyUGT"
+consumerKey <- '3esVC69GlJcmxL4VezZ7CdKwu' 
+consumerSecret <- 'gwtwk1oMqQvi6ZfqPphQb9uJctCDIIldGxYymU9OcCAJDbkouQ'
+accessToken <- '133360027-x7e4FuoCVA4AsEFBMjhs4kvx3HN86ajsRQmG7mwJ'
+accessSecret <- 'ak2qVw9ioIXyLmUw1UqWHNHohJRRPfWzlDtABaHRYzJIr'
 
 requestURL <- "https://api.twitter.com/oauth/request_token"
 authorizeURL <- "https://api.twitter.com/oauth/authorize"
 accessURL <- "https://api.twitter.com/oauth/access_token"
-
-accessToken <- "817499316847669248-nSsT5c9eGsBJrM0HD4COeWIa3WNIHyr"
 
 requestURL <- "https://api.twitter.com/oauth/inhysBxgyQ3j2zVVKNMIxJsxO"
 accessURL <-  "https://api.twitter.com/oauth/817499316847669248-nSsT5c9eGsBJrM0HD4COeWIa3WNIHyr"
