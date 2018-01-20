@@ -21,7 +21,7 @@ library(RCurl)
 library(ggplot2)
 
 consumerKey <- '3esVC69GlJcmxL4VezZ7CdKwu' 
-consumerSecret <- 'gwtwk1oMqQvi6ZfqPphQb9uJctCDIIldGxYymU9OcCAJDbkouQ'
+consumerSecret <-  'gwtwk1oMqQvi6ZfqPphQb9uJctCDIIldGxYymU9OcCAJDbkouQ'
 accessToken <- '133360027-x7e4FuoCVA4AsEFBMjhs4kvx3HN86ajsRQmG7mwJ'
 accessSecret <- 'ak2qVw9ioIXyLmUw1UqWHNHohJRRPfWzlDtABaHRYzJIr'
 
