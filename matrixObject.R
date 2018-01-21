@@ -151,3 +151,91 @@ diag(mX3)
 diag(mX3) <- 0
 mX3
 
+mX3 <- diag(2,3,3)
+mX3
+diag(mX) <- c(1,2,3); mX
+diag(mX)
+
+a <- matrix(c(1,2,3), ncol=1);a
+b <- matrix(c(1,0,-1), ncol=1);b
+t(a)
+t(a)%*%b
+
+#p255
+a= matrix(c(2,4,1), ncol=1);a
+x= matrix(c(1,2,0,3,-1,1), ncol=3);x
+x%*%a
+x%*%t(a) #error
+a%*%x #error
+
+mX <- matrix(1,2,3); mX
+mY <- matrix(1:6,3,2); mY
+
+mX%*%mY
+mX*mY #error
+mY*mY
+
+mY%*%mY #error
+mY%*%t(mY)
+
+#p257
+mA <- matrix(c(1,0,4,2,-1,1), nrow=3)
+mA <- matrix(c(1,0,4,2,-1,1), nrow=3); mA
+(mA <- matrix(c(1,0,4,2,-1,1), nrow=3))
+(mB <- matrix(c(1,-1,2,1,1,0), nrow=2))
+mA[1,]
+mB[,-1]
+mA[1,]*mB[,1]
+sum(mA[1,]*mB[,1])
+mA%*%mB
+mB%*%mA
+
+#p258
+mtcars
+str(mtcars)
+(col1 <- colnames(mtcars))
+(col2 <- names(mtcars))
+
+(ro1 <- rownames(mtcars))
+(ro2 <- row.names(mtcars))
+(mX <- matrix(c(1,2,3,4,5,6),2,3,byrow=T))
+mX_tot <- (cbind(mX, rowSums(mX)))
+mX
+#(mX_tot <- names(c('a1','a2','a3','s1'))) #칼럼 이름 붙이는 방법??
+
+#p259
+cbind(mX, apply(mX,1,sum))
+cbind(mX, rowSums(mX[,2:3]))
+cbind(mX, apply(mX[,2:3], 1, sum))
+
+mX <- mX[,2:3]
+cbind(mX, apply(mX,1,sum))
+(mX <- matrix(1:6, ncol=2))
+(mY <- c(10,20,30))
+mX*mY
+mX+mY
+mX%*%mY #error
+
+length(mX)
+length(mY)
+
+(mY <- matrix(1:6,3,2))
+
+apply(mY,1,sum)
+apply(mY,2,sum)
+rowMeans(mY)
+colMeans(mY)
+(mY1 <- cbind(mY, apply(mY,1,sum)))
+mY2 <- cbind(mY, apply(mY,1,sum),drop=F); mY2
+
+#p262
+(mY <- matrix(1:6,3,2))
+cbind(mY,apply(mY,1,sum))
+mY
+mY2 <- cbind(mY,apply(mY,1,sum),apply(mY,1,mean)); mY2
+
+?names
+# 칼럼 이름 어떻게 붙이더라?? names ㄴㄴ colnames ㅇㅇ
+#names(mY2) <- c(1,2,'sum1','mean2')
+colnames(mY2) <- c(1,2,'sum1','mean2')
+mY2
