@@ -1,23 +1,23 @@
 #p120. apps.twitter.com
-# install.packages("base64enc")
-# install.packages("ROAuth")
-# install.packages("twitteR")
-# 
-# install.packages("plyr")
-# install.packages("stringr")
-# install.packages("RJSONIO")
-# install.packages("RCurl")
-# install.packages("ggplot2")
+file_path <- "f:/doc/myR/"
+setwd(file_path)
+
+install.packages("base64enc")
+install.packages("ROAuth")
+install.packages("twitteR")
+
+install.packages("plyr")
+install.packages("stringr")
+install.packages("RJSONIO")
+install.packages("ggplot2")
 
 library(twitteR)
 library(ROAuth)
-# library(RCurl)
 library(base64enc)
 
 library(plyr)
 library(stringr)
 library(RJSONIO)
-library(RCurl)
 library(ggplot2)
 
 consumerKey <- '3esVC69GlJcmxL4VezZ7CdKwu' 
@@ -25,19 +25,16 @@ consumerSecret <-  'gwtwk1oMqQvi6ZfqPphQb9uJctCDIIldGxYymU9OcCAJDbkouQ'
 accessToken <- '133360027-x7e4FuoCVA4AsEFBMjhs4kvx3HN86ajsRQmG7mwJ'
 accessSecret <- 'ak2qVw9ioIXyLmUw1UqWHNHohJRRPfWzlDtABaHRYzJIr'
 
-requestURL <- "https://api.twitter.com/oauth/request_token"
-authorizeURL <- "https://api.twitter.com/oauth/authorize"
-accessURL <- "https://api.twitter.com/oauth/access_token"
-
-requestURL <- "https://api.twitter.com/oauth/inhysBxgyQ3j2zVVKNMIxJsxO"
-accessURL <-  "https://api.twitter.com/oauth/817499316847669248-nSsT5c9eGsBJrM0HD4COeWIa3WNIHyr"
-authURL <-  "https://api.twitter.com/oauth/"
+requestURL <- paste0("https://api.twitter.com/oauth/",consumerKey)
+accessURL <- paste0("https://api.twitter.com/oauth/",accessToken)
+authURL <- "https://api.twitter.com/oauth/authorize"
 #
 twitCred <- OAuthFactory$new(
-  consumerKey= consumerKey,
-  consumerSecret= consumerSecret,
-  requestURL= requestURL,
-  accessURL= accessTokenURL
+  consumerKey= consumerKey
+  , consumerSecret= consumerSecret
+  , requestURL= requestURL
+  , accessURL= accessURL
+  , authURL= authURL
 )
 
 # 사용가능한 상태 만들기
@@ -60,17 +57,18 @@ install_github("twitteR", username="geoffjentry", force=TRUE)
 n <- 200
 keyword <- 'react'
 keyword <- enc2utf8(keyword)
-tweets2 <- searchTwitter(keyword, n)
+tweets <- searchTwitter(keyword, n)
 
-Rangers_df <- twListToDF(tweets2)
+tweet_df <- twListToDF(tweets)
 
 #
-write.csv(Rangers_df, file='_RangersTweets.csv', row.names=F)
+write.csv(tweet_df, file=paste0(file_path,'result/_web_',keyword,'.csv'), row.names=F)
 
 #인증저장
-download.file(url="http://curl.haxx.se/ca/cacert.pem", destfile="cacert.pem")
-registerTwitterOAuth(twitCred)
-?setup_twitter_oauth
+# download.file(url="http://curl.haxx.se/ca/cacert.pem", destfile="cacert.pem")
+# registerTwitterOAuth(twitCred)
+# ?setup_twitter_oauth
 
 save(twitCred, file="twitter_authentication.Rdata")
 save(list="twitCred", file="twitteR_credentials")
+

@@ -12,8 +12,8 @@ kick <- read.csv("kick__/k201801.csv"
 #                  ,stringsAsFactors=FALSE
 #                  ,sep=",")
 # kickName <- names(kick); kickName
-names(kick)
 names(kick) <- c("ID",kickName[-1])
+names(kick)
 
 head(kick,2)
 str(kick)
