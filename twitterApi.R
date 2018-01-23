@@ -101,6 +101,7 @@ rules[[1]]
 # # library(pacman)
 # Sys.getenv("R_LIBS_USER")
 
+# 구 단위로 쪼개야. 글자 단위 ㄴ
 reV <- unlist(rules)
 revec <- VectorSource(rules)
 revecco <- Corpus(VectorSource(rules))
@@ -110,4 +111,10 @@ rmyTdm <-
 str(rmyTdm)
 
 #p130
-inspect(rmyTdm[1:20, 1:20])
+indspect_rmy <- inspect(rmyTdm[1:20, 1:20])
+
+write.csv(
+  indspect_rmy
+  ,file = paste0(file_path, 'result/_inspect_', keyword, '.csv')
+  ,row.names = T
+)
