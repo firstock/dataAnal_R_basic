@@ -1,5 +1,5 @@
 ###web_need_easy
-file_path <- "D:/github/dataAnal_R_basic/" #학원
+file_path <- "D:/github/dataAnal_R_basic/" #집== 학원
 setwd(file_path)
 
 ## 상위 300줄만 추출
@@ -32,15 +32,40 @@ for(i in 1:length(stateSort)){
 head(kickE,1)
 names(kickE)
 
+
 for(i in 1:length(kickE)){
   print(max(data.frame(chr=apply(kickE,2,nchar)[,i])))
 }
 
 
 
-## date -> 정수형 파생변수 만들기. deadline, launched
-??lubridate
+## string -> date.deadline, launched
+# ??lubridate
+# install.packages("lubridate")
+library(lubridate)
+kickE$deadline <- ymd_hm(kickE$deadline)
+kickE$launched <- ymd_hm(kickE$launched)
+head(kickE$deadline)
+head(kickE$launched)
+
+## date -> 정수형 파생변수 만들기
+kickE$endY <- year(kickE$deadline)
+kickE$endMon <- month(kickE$deadline)
+kickE$endD <- day(kickE$deadline)
+kickE$endH <- hour(kickE$deadline)
+kickE$endMin <- minute(kickE$deadline)
+
+kickE$initY <- year(kickE$launched)
+kickE$initMon <- month(kickE$launched)
+kickE$initD <- day(kickE$launched)
+kickE$initH <- hour(kickE$launched)
+kickE$initMin <- minute(kickE$launched)
+
+names(kickE)
+head(kickE,2)
 
 ## 가설: 목표금액이 높을 수록 프로젝트 성공률이 낮다. goal is smaller than, state will be fail
 ## 종속변수_state ~ 독립변수_goal + pledged+ backers+ usd.pledged
-cor <- cor(round(kickE[,-1],digit=0))
+cor <- cor(round(kickE[,-c(1:2,4)],digit=0))
+
+#error !
