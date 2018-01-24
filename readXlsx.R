@@ -21,8 +21,8 @@ hamp<-read.xlsx("data/hamp.xlsx",
 
 .libPaths()
 
-
-
 ####
 install.packages("xlsx")
 library(xlsx)
+
+#~p286
