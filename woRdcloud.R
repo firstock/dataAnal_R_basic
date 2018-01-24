@@ -1,6 +1,7 @@
 getwd()
 setwd("D:/github/dataAnal_R_basic/result")
 
+#english - tm
 install.packages("KoNLP") #extractNoun. 설치할렴 jdk필요
 install.packages("RColorBrewer") #brewer.pal
 install.packages("wordcloud") #wordcloud
@@ -11,7 +12,7 @@ library(wordcloud)
 text_jb51_homepage <- readLines("jb51_Eng_utf8.txt")
 txtjb2 <- sapply(text_jb51_homepage, extractNoun, USE.NAMES=F)
 txtjb3 <- unlist(txtjb2)
-txtjb3
+head(txtjb3,10)
 # gsub
 txt <- readLines("w_gsub.txt")
 txt[5]

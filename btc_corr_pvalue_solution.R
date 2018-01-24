@@ -18,32 +18,6 @@ mod1 <- lm(btc_market_price~btc_estimated_transaction_volume_usd, data=btc)
 summary(mod)
 summary(mod1)
 
-# data hold out
-set.seed(1)
-train.index <- sample(1:nrow(btc),0.70*nrow(btc), replace=FALSE)
-train <- btc[train.index,]
-test <- btc[-train.index,]
-plot(p1)
-
-#training
-model1 <- lm(btc_market_price~ btc_trade_volume, train)
-summary(model1)
-p1 <- predict(model1, test)
-head(p1)
-
-error1 <- p1- test[["btc_market_price"]]; error1
-sqrt(mean(error1^2))  #NA
-plot(p1)
-
-model2 <- lm(btc_market_price~ btc_market_cap, train)
-summary(model2)
-
-p2 <- predict(model2, test)
-head(p2)
-
-error2 <- p2- test[["btc_market_price"]]
-sqrt(mean(error2^2))
-plot(p2)
 
 #01:52
 
@@ -194,3 +168,32 @@ model_revenue
 model_fees
 model_total
 model_usd
+
+
+# #¸Õ ÈÊ³¯
+# # data hold out
+# set.seed(1)
+# train.index <- sample(1:nrow(btc),0.70*nrow(btc), replace=FALSE)
+# train <- btc[train.index,]
+# test <- btc[-train.index,]
+# plot(p1)
+# 
+# #training
+# model1 <- lm(btc_market_price~ btc_trade_volume, train)
+# summary(model1)
+# p1 <- predict(model1, test)
+# head(p1)
+# 
+# error1 <- p1- test[["btc_market_price"]]; error1
+# sqrt(mean(error1^2))  #NA
+# plot(p1)
+# 
+# model2 <- lm(btc_market_price~ btc_market_cap, train)
+# summary(model2)
+# 
+# p2 <- predict(model2, test)
+# head(p2)
+# 
+# error2 <- p2- test[["btc_market_price"]]
+# sqrt(mean(error2^2))
+# plot(p2)
