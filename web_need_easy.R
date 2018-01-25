@@ -2,13 +2,13 @@
 file_path <- "D:/github/dataAnal_R_basic/" #집== 학원
 setwd(file_path)
 
-## 상위 300줄만 추출
-# install.packages("data.table")
-library(data.table)
-
-kick <- fread("data/kick201801.csv")
-kick300 <- head(kick,300)
-write.csv(kick300,"data/kick18_easy.csv")
+# ## 상위 300줄만 추출
+# # install.packages("data.table")
+# library(data.table)
+# 
+# kick <- fread("data/kick201801.csv")
+# kick300 <- head(kick,300)
+# write.csv(kick300,"data/kick18_easy.csv")
 
 ## 엑셀로 text 데이터 다 지우기. state빼고
 ## 다루기 쉬운 data.frame으로 다시 데려옴
@@ -18,25 +18,29 @@ kickE$state <- factor(kickE$state)
 # 단일 데이터셋이라 merge 없음
 # #
 
-## state. 범주형 > 숫자화
+## state. 범주형 > 숫자화. 1~5
 stateSort <- unique(kickE$state)
 stateSort
-# stateSort[5]
-# length(stateSort)
-
 for(i in 1:length(stateSort)){
   kickE$state <- gsub(stateSort[i],i,kickE$state)
 }
-# head(kickE$state,100)
 
 head(kickE,1)
 names(kickE)
 
-
-for(i in 1:length(kickE)){
-  print(max(data.frame(chr=apply(kickE,2,nchar)[,i])))
+# 이상치 간단 체크. 칼럼별 celㅣ 최대 길이 보기
+for(i in 1:length(kickE)) {
+  print(max(data.frame(chr = apply(kickE, 2, nchar)[, i])))
 }
-
+# goal 9자리 무엇? 
+# length(kickE[,"goal"])==9 #ㄴㄴ
+# 이거됨?? 
+kickE_g9 <-
+  sapply(kickE, function(x) {
+    Filter(function(y) {
+      nchar(y) == 9
+    }, x)
+  })
 
 
 ## string -> date.deadline, launched
