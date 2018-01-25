@@ -2,45 +2,25 @@
 file_path <- "D:/github/dataAnal_R_basic/" #집== 학원
 setwd(file_path)
 
-## 무작위 샘플 300개
+## 상위 300줄만 추출
 # install.packages("data.table")
 library(data.table)
+
 kick <- fread("data/kick201801.csv")
-# example(sample)
 kick300 <- head(kick,300)
-# kick300 <- kick[sample(nrow(kick), size=300, replace=TRUE),]
-# fwrite(kick300, file="data/kick18_easy.csv")
-write.csv(kick300, "data/kick18_easy3.csv")
-
-################# 주의점
-# 엑셀 중간에 밀려있는 코드가 있는데, 그 정제작업을 엑셀에서 함
-# data backup 안에 있는 게 원본이 아님!!
-
-
-
-## 되던 코드 
-# library(data.table)
-# 
-# kick <- fread("data/kick201801.csv")
-# kick300 <- head(kick,300)
-# write.csv(kick300,"data/kick18_easy.csv")
-
-
+write.csv(kick300,"data/kick18_easy_ori.csv")
 
 ## 엑셀로 text 데이터 다 지우기. state빼고
 ## 다루기 쉬운 data.frame으로 다시 데려옴
-kickE <- read.csv("data/kick18_easy3.csv", stringsAsFactors = FALSE)
-
-kickE <- kickE[,c("deadline","goal","launched","pledged","state","backers","usd.pledged")]
+kickE <- read.csv("data/kick18_easy_ori.csv")
 kickE$state <- factor(kickE$state)
 # head(kickE$state,100)
 # 단일 데이터셋이라 merge 없음
 # #
 
 ## state. 범주형 > 숫자화. 1~5
-# error. 5번째에 이상한 게 옴
 stateSort <- unique(kickE$state)
-head(stateSort,5)
+stateSort
 for(i in 1:length(stateSort)){
   kickE$state <- gsub(stateSort[i],i,kickE$state)
 }
@@ -52,18 +32,16 @@ names(kickE)
 for(i in 1:length(kickE)) {
   print(max(data.frame(chr = apply(kickE, 2, nchar)[, i])))
 }
+# goal 9자리 무엇? 
+# length(kickE[,"goal"])==9 #ㄴㄴ
+# 이거됨?? 
+kickE_g9 <-
+  sapply(kickE, function(x) {
+    Filter(function(y) {
+      nchar(y) == 9
+    }, x)
+  })
 
-# error!
-# # goal 9자리 무엇? 
-# # length(kickE[,"goal"])==9 #ㄴㄴ
-# # error! filter랑 sapply랑 의미 공부!
-# kickE_g9 <-
-#   sapply(kickE$goal, function(x) {
-#     Filter(function(y) {
-#       nchar(as.character(y)) == 9
-#     }, x)
-#   })
-# kickE_g9
 
 ## string -> date.deadline, launched
 # ??lubridate
@@ -93,5 +71,3 @@ head(kickE,2)
 ## 가설: 목표금액이 높을 수록 프로젝트 성공률이 낮다. goal is smaller than, state will be fail
 ## 종속변수_state ~ 독립변수_goal + pledged+ backers+ usd.pledged
 cor <- cor(round(kickE[,-c(1:2,4)],digit=0))
-
-#error !
