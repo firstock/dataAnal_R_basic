@@ -8,90 +8,94 @@ library(data.table)
 kick <- fread("data/kick201801.csv")
 # example(sample)
 kick300 <- head(kick,300)
-# kick300 <- kick[sample(nrow(kick), size=300, replace=TRUE),]
-# fwrite(kick300, file="data/kick18_easy.csv")
-write.csv(kick300, "data/kick18_easy3.csv")
-
-################# 주의점
-# 엑셀 중간에 밀려있는 코드가 있는데, 그 정제작업을 엑셀에서 함
-# data backup 안에 있는 게 원본이 아님!!
-
-
-
-## 되던 코드 
-# library(data.table)
-# 
-# kick <- fread("data/kick201801.csv")
-# kick300 <- head(kick,300)
-# write.csv(kick300,"data/kick18_easy.csv")
-
-
+str(kick300)
 
 ## 엑셀로 text 데이터 다 지우기. state빼고
 ## 다루기 쉬운 data.frame으로 다시 데려옴
-kickE <- read.csv("data/kick18_easy3.csv", stringsAsFactors = FALSE)
+names(kick300)
+subset(kick300
+       , select=c("deadline","goal","launched"
+                  ,"pledged","state","backers"
+                  ,"usd pledged")
+)
 
-kickE <- kickE[,c("deadline","goal","launched","pledged","state","backers","usd.pledged")]
-kickE$state <- factor(kickE$state)
-# head(kickE$state,100)
 # 단일 데이터셋이라 merge 없음
 # #
 
 ## state. 범주형 > 숫자화. 1~5
 # error. 5번째에 이상한 게 옴
-stateSort <- unique(kickE$state)
+kick300$state
+stateSort <- unique(kick300$state)
 head(stateSort,5)
 for(i in 1:length(stateSort)){
-  kickE$state <- gsub(stateSort[i],i,kickE$state)
+  kick300$state <- gsub(stateSort[i],i,kick300$state)
 }
 
-head(kickE,1)
-names(kickE)
+head(kick300,1)
+names(kick300)
+str(kick300)
 
-# 이상치 간단 체크. 칼럼별 celㅣ 최대 길이 보기
-for(i in 1:length(kickE)) {
-  print(max(data.frame(chr = apply(kickE, 2, nchar)[, i])))
-}
+# # error! FUN(newX[, i], ...) : invalid multibyte string, element 64
+# # 이상치 간단 체크. 칼럼별 celㅣ 최대 길이 보기
+# for(i in 1:length(kick300)) {
+#   print(max(data.frame(chr = apply(kick300, 2, nchar)[, i])))
+# }
 
-# error!
-# # goal 9자리 무엇? 
-# # length(kickE[,"goal"])==9 #ㄴㄴ
+# # error! 원하는대로 나오지 X. deadline을 다 NA로 밀어버림
+# # goal 9자리 무엇?
+# # length(kick300[,"goal"])==9 #ㄴㄴ
 # # error! filter랑 sapply랑 의미 공부!
-# kickE_g9 <-
-#   sapply(kickE$goal, function(x) {
+# kick300_g9 <-
+#   sapply(kick300$goal, function(x) {
 #     Filter(function(y) {
 #       nchar(as.character(y)) == 9
 #     }, x)
 #   })
-# kickE_g9
+# kick300_g9
 
 ## string -> date.deadline, launched
 # ??lubridate
 # install.packages("lubridate")
+
+kick300$deadline
+
 library(lubridate)
-kickE$deadline <- ymd_hm(kickE$deadline)
-kickE$launched <- ymd_hm(kickE$launched)
-head(kickE$deadline)
-head(kickE$launched)
+kick300$deadline_hm <- ymd_hms(kick300$deadline)
+kick300$launched_hm <- ymd_hms(kick300$launched)
+head(kick300$deadline)
+head(kick300$launched)
 
 ## date -> 정수형 파생변수 만들기
-kickE$endY <- year(kickE$deadline)
-kickE$endMon <- month(kickE$deadline)
-kickE$endD <- day(kickE$deadline)
-kickE$endH <- hour(kickE$deadline)
-kickE$endMin <- minute(kickE$deadline)
+kick300$endY <- year(kick300$deadline)
+kick300$endMon <- month(kick300$deadline)
+kick300$endD <- day(kick300$deadline)
+kick300$endH <- hour(kick300$deadline)
+kick300$endMin <- minute(kick300$deadline)
+kick300$endS <- second(kick300$deadline)
 
-kickE$initY <- year(kickE$launched)
-kickE$initMon <- month(kickE$launched)
-kickE$initD <- day(kickE$launched)
-kickE$initH <- hour(kickE$launched)
-kickE$initMin <- minute(kickE$launched)
 
-names(kickE)
-head(kickE,2)
+kick300$initY <- year(kick300$launched)
+kick300$initMon <- month(kick300$launched)
+kick300$initD <- day(kick300$launched)
+kick300$initH <- hour(kick300$launched)
+kick300$initMin <- minute(kick300$launched)
+kick300$initS <- second(kick300$deadline)
+
+names(kick300)
+head(kick300,2)
 
 ## 가설: 목표금액이 높을 수록 프로젝트 성공률이 낮다. goal is smaller than, state will be fail
 ## 종속변수_state ~ 독립변수_goal + pledged+ backers+ usd.pledged
-cor <- cor(round(kickE[,-c(1:2,4)],digit=0))
+# install.packages("caret")
+# install.packages("corrplot")
+# install.packages("FactoMineR")
+library(caret)
+library(corrplot)
+library(FactoMineR)
+
+mod <- lm(state~ ., data=kick300)
+plot(mod)
+
+cor <- cor(round(kick300[,],digit=0))
 
 #error !
