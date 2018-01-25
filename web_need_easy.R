@@ -2,28 +2,23 @@
 file_path <- "D:/github/dataAnal_R_basic/" #집== 학원
 setwd(file_path)
 
-## 무작위 샘플 300개
+## 상위 300개
 # install.packages("data.table")
 library(data.table)
-kick <- fread("data/kick201801.csv")
+kick <- fread("data/kick201801.csv") 
 # example(sample)
 kick300 <- head(kick,300)
 str(kick300)
+#같은걸 read.csv로 다시 데려오면 error. 129개 읽어옴
 
-## 엑셀로 text 데이터 다 지우기. state빼고
-## 다루기 쉬운 data.frame으로 다시 데려옴
+#numeric column only
 names(kick300)
-subset(kick300
-       , select=c("deadline","goal","launched"
-                  ,"pledged","state","backers"
-                  ,"usd pledged")
-)
+subset(kick300, select=c("deadline","goal","launched"
+                  ,"pledged","state","backers","usd pledged"))
 
 # 단일 데이터셋이라 merge 없음
-# #
 
 ## state. 범주형 > 숫자화. 1~5
-# error. 5번째에 이상한 게 옴
 kick300$state
 stateSort <- unique(kick300$state)
 head(stateSort,5)
@@ -35,28 +30,10 @@ head(kick300,1)
 names(kick300)
 str(kick300)
 
-# # error! FUN(newX[, i], ...) : invalid multibyte string, element 64
-# # 이상치 간단 체크. 칼럼별 celㅣ 최대 길이 보기
-# for(i in 1:length(kick300)) {
-#   print(max(data.frame(chr = apply(kick300, 2, nchar)[, i])))
-# }
+# error! FUN(newX[, i], ...) : invalid multibyte string, element 64##### 이상치 간단 체크. 칼럼별 celㅣ 최대 길이 보기> 폴(i in 1:length(kick300)) {print(max(data.frame(chr = apply(kick300, 2, nchar)[, i]))) }
+# error! deadline을 다 NA로 밀어버림, goal 9자리 무엇? error! filter랑 sapply랑 의미 공부!. 딴거 <- sapply(kick300$goal, function(x) {Filter(function(y) {nchar(as.character(y)) == 9 }, x) })
 
-# # error! 원하는대로 나오지 X. deadline을 다 NA로 밀어버림
-# # goal 9자리 무엇?
-# # length(kick300[,"goal"])==9 #ㄴㄴ
-# # error! filter랑 sapply랑 의미 공부!
-# kick300_g9 <-
-#   sapply(kick300$goal, function(x) {
-#     Filter(function(y) {
-#       nchar(as.character(y)) == 9
-#     }, x)
-#   })
-# kick300_g9
-
-## string -> date.deadline, launched
-# ??lubridate
 # install.packages("lubridate")
-
 kick300$deadline
 
 library(lubridate)
@@ -83,7 +60,7 @@ kick300$initS <- second(kick300$deadline)
 
 names(kick300)
 head(kick300,2)
-
+str(kick300)
 ## 가설: 목표금액이 높을 수록 프로젝트 성공률이 낮다. goal is smaller than, state will be fail
 ## 종속변수_state ~ 독립변수_goal + pledged+ backers+ usd.pledged
 # install.packages("caret")
@@ -93,9 +70,10 @@ library(caret)
 library(corrplot)
 library(FactoMineR)
 
+# 상관관계
 mod <- lm(state~ ., data=kick300)
 plot(mod)
 
+#error !
 cor <- cor(round(kick300[,],digit=0))
 
-#error !
