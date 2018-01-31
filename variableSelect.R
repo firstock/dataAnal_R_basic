@@ -2,7 +2,7 @@
 getwd()
 setwd("E:/github/dataAnal_R_basic")
 
-install.packages("leaps")
+install.packages("leaps") #regsubsets
 library(leaps)
 
 install.packages("mlbench") #BostonHousing
@@ -18,7 +18,7 @@ summary(reg_m)
 names(reg_m) #bic, adjr2 이 어디있음???
 summary(reg_m)$bic
 summary(reg_m)$adjr2
-
+  
 # par(mfrow= c(1,1)) #plot 초기화
 par(mfrow= c(3,1)) #plot 판대기
 plot(summary(reg_m)$adjr2)
