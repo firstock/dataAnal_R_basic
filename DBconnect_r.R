@@ -61,7 +61,7 @@ db.connect <- odbcConnect(dsn="R_Oracle", uid="scott", pwd="tiger", believeNRows
 #데이터 가져오기. select
 sql.x <- "select * from TEST_TABLE"
 (import.tb.list <- sqlQuery(db.connect, sql.x, stringsAsFactors=F))
-
+args(sqlQuery)
 is.data.frame(import.tb.list)
 
 ## 접속정보 해제
