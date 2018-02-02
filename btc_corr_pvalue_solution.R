@@ -21,7 +21,7 @@ summary(mod1)
 
 #01:52
 
-############## »ó°ü°è¼ö
+############## ????????
 btc_corr <- na.omit(btc)
 head(btc_corr,1)
 cor <- cor(round(btc[,2:12],digit=0))
@@ -42,11 +42,11 @@ head(btc,1)
 
 
 # summary(btc)
-## PCA. µÕ±×·± ±×¸².FactoMineR »ç¿ë
+## PCA. ?Õ±×·? ?×¸?.FactoMineR ????
 pc1 <- PCA(btc[,2:24], scale.unit= TRUE, ncp=23, graph=TRUE)
 
 
-########### 2018-01-18 ¿ÀÀü 10:57 
+########### 2018-01-18 ???? 10:57 
 getwd()
 ?corrplot.mixed
 # windows(80,90)
@@ -56,7 +56,7 @@ getwd()
 install.packages("Hmisc")
 library(Hmisc)
 
-# error- data¿¡ btc_trade_volume µé¾î¿ÀÁö ¾ÊÀ½!
+# error- data?? btc_trade_volume ???????? ??ï¿½ï¿½!
 # p
 bit_cor_pvale <- rcorr(as.matrix(cor), type="pearson")
 bit_cor_pvale$P
@@ -73,7 +73,7 @@ head(bit_cor_pvale)
 #independet: btc_market_cap, btc_trade_volue, btc_n_orphaned_blocks
 #btc_hash_rate, btc_difficulty
 
-#lm(dependence°á°ú~independent¿øÀÎÃßÁ¤, data= BTC)
+#lm(dependence????~independent??????ï¿½ï¿½, data= BTC)
 
 mod <- lm(btc_market_price~ btc_market_cap, data=BTC)
 summary(mod)
@@ -100,7 +100,7 @@ btc[["btc_total_bitcoins"]]
 
 
 
-###µ¥ÀÌÅÍ È¦µå¾Æ¿ô
+###?????? È¦???Æ¿?
 set.seed(1)
 train.index <- sample(1:nrow(btc), 0.70*nrow(btc), replace=FALSE)
 train <- btc[train.index,]
@@ -170,7 +170,7 @@ model_total
 model_usd
 
 
-# #¸Õ ÈÊ³¯
+# #?? ?Ê³?
 # # data hold out
 # set.seed(1)
 # train.index <- sample(1:nrow(btc),0.70*nrow(btc), replace=FALSE)
