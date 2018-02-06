@@ -1,15 +1,15 @@
 getwd()
-setwd("D:/github/dataAnal_R_basic/data")
+setwd("e:/github/dataAnal_R_basic/data")
 
 #english - tm
-install.packages("KoNLP") #extractNoun. ¼³Ä¡ÇÒ·Å jdkÇÊ¿ä
+install.packages("KoNLP") #extractNoun. ??Ä¡?Ò·? jdk?Ê¿?
 install.packages("RColorBrewer") #brewer.pal
 install.packages("wordcloud") #wordcloud
 library(KoNLP)
 library(RColorBrewer)
 library(wordcloud)
 
-text_jb51_homepage <- readLines("crime_ansi.txt")
+text_jb51_homepage <- readLines("chicken.txt")
 txtjb2 <- sapply(text_jb51_homepage, extractNoun, USE.NAMES=F)
 txtjb3 <- unlist(txtjb2)
 head(txtjb3,10)
@@ -26,13 +26,13 @@ txtjb3 <- Filter(function(x) {
 }, txtjb3)
 
 # save- I need
-write(unlist(txtjb3),"jb15.net_homepage_text.txt")
+write(unlist(txtjb3),"wordCloud_before.txt")
 
 # wordcloud- for viewing
-data4 <- read.table("jb15.net_homepage_text.txt")
+data4 <- read.table("wordCloud_before.txt")
 wordcount <- table(data4)
 
-#Á¤·Ä ÈÄ 20°³¸¸
+#ï¿½ï¿½?? ?? 20????
 head(sort(wordcount, decreasing=T), 20)
 
 palete <- brewer.pal(8,"Set2")
