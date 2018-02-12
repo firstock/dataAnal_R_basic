@@ -24,7 +24,9 @@ data <- read.csv("merge_index.csv", header=T, sep=",")
 summary(data)
 head(data)
 
-m <- lm(data$h_price ~ data$kospi)
+# m <- lm(data$h_price ~ data$kospi)
+m <- lm(data$s_price ~ data$kospi)
+
 
 
 ## 결과추출
@@ -51,6 +53,6 @@ plot(m)
 ## 회귀직선의 시각화
 #ㄴㄴplot(data$h_price, data$kospi)
 plot(data$kospi, data$h_price)
-abline(coef(m)) # ?? 아무것도 안 나옴
+abline(coef(m))
 
 coef(m)
