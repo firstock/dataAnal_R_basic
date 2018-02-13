@@ -1,6 +1,6 @@
 setwd("E:/github/dataAnal_R_basic")
 
-install.packages("cluster")
+# install.packages("cluster")
 library(cluster)
 
 data(iris)
