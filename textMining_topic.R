@@ -28,7 +28,7 @@ useSejongDic()
 
 ## 파일 읽기
 data <- readLines("data2nd/teraMmanner_180219_some_ANSI.txt")
-# data <- readLines("data2nd/seoul_new.txt")
+# data <- readLines("data2nd/seoul_new.txt", encoding = "UTF-8")
 head(data)
 tail(data)
 
