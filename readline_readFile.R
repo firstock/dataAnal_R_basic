@@ -42,5 +42,10 @@ read2 <- read.table("data2nd/fruit30.txt"
                     )
 read2
 
-addStr <- as.data.frame.table("#blablabla")
-read2 <- rbind(read2,"#blablabla"); read2
+read10 <- read.table("data2nd/fruit30.txt"
+                     ,nrows= 4
+                     ,header= T
+                     ,sep=","
+                     ,row.names= "X"
+                     )
+read10
