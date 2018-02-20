@@ -52,7 +52,7 @@ gsub_txt <- function(ignore_path, data){
   return(data)
 }
 
-# 아니면 중복제거로만 따로 함수를 만들까
+# 중복제거 전용함수
 rmDuplicate_txt <- function(rmDupli_path, data){
   txt <- readLines(rmDupli_path) #맨 마지막 엔터 꼭
   cnt_txt <- length(txt)
