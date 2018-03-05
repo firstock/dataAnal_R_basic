@@ -25,6 +25,7 @@ hs_mp <- hospi[,10]
 hs_sd <- hospi[,11]
 
 
+par(mfrow=c(1,2))
 ## line 그렸더니, 겹치는 부분이 서로 분간이 안 된
 plot(hs_kn, xlim=c(0,10), ylim=c(0,350), xlab="", ylab=""
      , col="lightpink4", type="o", axes= F)

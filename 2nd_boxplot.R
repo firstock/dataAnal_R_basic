@@ -5,7 +5,15 @@ v2 <- c(5,7,15,8,9)
 v3 <- c(11,20,15,18,13)
 boxplot(v1,v2,v3,col=c("blue","yellow","pink"),
         names=c("Blue","Yellow","Pink"),
-        horizontal=T)
+        horizontal=T,
+        angle= 45, density= 4
+        )
+boxplot(v1,v2,v3,
+        col=c("blue","yellow","pink"),
+        names=c("Blue","Yellow","Pink"),
+        notch= T
+        )
+# example(boxplot)
 
 a1 <- read.csv("data2nd/seoul_hospital.csv",stringsAsFactors = F)
 a1
