@@ -1,5 +1,5 @@
 getwd()
-setwd("e:/github/dataAnal_R_basic/data")
+setwd("d:/github/dataAnal_R_basic/data2nd")
 
 #english - tm
 install.packages("KoNLP") #extractNoun. ??ġ?ҷ? jdk?ʿ?
@@ -9,12 +9,12 @@ library(KoNLP)
 library(RColorBrewer)
 library(wordcloud)
 
-text_jb51_homepage <- readLines("chicken.txt")
+text_jb51_homepage <- readLines("bistel_reply.txt")
 txtjb2 <- sapply(text_jb51_homepage, extractNoun, USE.NAMES=F)
 txtjb3 <- unlist(txtjb2)
 head(txtjb3,10)
 # gsub
-txt <- readLines("w_gsub.txt")
+txt <- readLines("w_ignore_jobplanet.txt")
 txt[5]
 cnt_txt <- length(txt)
 for(i in 1:cnt_txt){
@@ -33,7 +33,7 @@ data4 <- read.table("wordCloud_before.txt")
 wordcount <- table(data4)
 
 #��?? ?? 20????
-head(sort(wordcount, decreasing=T), 20)
+head(sort(wordcount, decreasing=T), 50)
 
 palete <- brewer.pal(8,"Set2")
 wordcloud(names(wordcount), freq= wordcount, scale=c(5,1)
