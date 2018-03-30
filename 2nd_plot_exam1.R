@@ -58,15 +58,20 @@ plot(y_20, ylim=c(0,10), col="mediumpurple4", type="o",axes=F, lwd=2)
 axis(1, at=1:length(colname), label= colname, las= 2)
 
 
+# barplot[horiz]
+# boxplot[horizontal]
 
 ## 이하, 쳐보진 않음
 ###### barplot
 x <- matrix(c(5,4,3,2),2,2); x
 barplot(x,beside=T,names=c(5,3), col=c("green","yellow"))
+barplot(x,beside=T,horiz=T,names=c(5,3), col=c("green","yellow"))
+# barplot(x,beside=T,horizㄴㄴontal=T,names=c(5,3), col=c("green","yellow"))
+barplot(x,horiz=T,names=c(5,3), col=c("green","yellow"))
+x
+barplot(x,names=c(5,3),col=c("green","yellow"),ylim=c(0,13))
 
-barplot(x,names=c(5,3),col=c("green","yellow"),ylim=c(0,12))
-
-#중간 여백
+#중간 여백- B L T R. (밑,좌,위,우)
 par(oma=c(1,0.5,1,0.5))
 barplot(x,names=c(5,3),beside=T,col=c("green","yellow"),horiz=F)
 
